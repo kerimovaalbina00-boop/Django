@@ -85,6 +85,10 @@
                     <p><strong>Rate:</strong> {{ post.rate }}</p>
                 </div>
             </div>
+
+            <a href="{% url 'create_category' %}">
+    Создать категорию
+</a>
         </div>
     {% endfor %}
 </div>

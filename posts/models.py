@@ -43,13 +43,11 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to="posts", null=True, blank=True)
-    is_published = models.BooleanField(default=True)
     category = models.ForeignKey(
         "Category", null=True, blank=True, on_delete=models.SET_NULL
     )
 
     tags = models.ManyToManyField(Tag, null=True, blank=True)
-    
 
     def __str__(self) -> str:
         return f"{self.title}"
@@ -68,4 +66,6 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name}"
+    
+
 

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    {% if errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ errors }}
+                        </div>
+                    {% endif %}
+                    <h4 class="card-title mb-4">Редактирование</h4>
+
+                    <form method="post" enctype="multipart/form-data">
+                        
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Заголовок</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="title" 
+                                name="title" 
+                                placeholder="Введите заголовок"
+                                value="{{ post.title }}"
+                            >
+                        </div>
+
+                        <!-- Content -->
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Контент</label>
+                            <textarea 
+                                class="form-control" 
+                                id="content" 
+                                name="content" 
+                                rows="5"
+                                placeholder="Введите текст поста"
+                
+                            >{{ post.content }}</textarea>
+                        </div>
+
+                        <!-- Rate -->
+                        <div class="mb-3">
+                            <label for="rate" class="form-label" >Рейтинг</label>
+                            <input type="number" name="rate" class="form-control" value="{{ post.rate }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Изображение</label>
+                            <input type="file" name="image" class="form-control" value="{{ image }}">
+                            {% if post.image %}
+                            <img src="{{ post.image.url }}">
+                            {% endif %}
+                        </div>
+                        {% if categories %}
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Категория</label>
+                                <select class="form-select" id="category" name="category">
+                                    {% for category in categories %}
+                                    <option value="{{ category.id }}" {% if category.id == post.category_id %}selected{% endif %}>{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                        </div>
+                        {% endif %}
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-primary w-100">
+                            Редактировать
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
